@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
 import rokaya.salma.userbrowser.model.DB_Connection;
+import rokaya.salma.userbrowser.model.User;
 
 /**
  *
@@ -25,7 +26,7 @@ public class UsersDAO {
     public UsersDAO() {
         try {
             set = (RowSetProvider.newFactory()).createCachedRowSet();
-            int key[]={1};
+            int key[] = {1};
             set.setKeyColumns(key);
 //            DataSource source = DataSourceFactory.getOracleDataSource();
             set.setDataSourceName("db.properties");
@@ -42,6 +43,74 @@ public class UsersDAO {
             ex.printStackTrace();
         }
         return set;
+    }
+
+    void deleteUser(User user) {
+        try {
+            set.deleteRow();
+            set.acceptChanges(DB_Connection.getConnection());
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void updateUser(User user) {
+
+    }
+
+    void addUser(User user) {
+
+    }
+    User getNextUser() {
+        User user=null;
+        try {
+            if (set.next()) {
+                user = new User(set.getInt("ID"), set.getString("FNAME"),
+                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
+
+    User getLastUser() {
+        User user=null;
+        try {
+            if (set.last()) {
+                user = new User(set.getInt("ID"), set.getString("FNAME"),
+                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
+
+    User getPrevUser() {
+        User user=null;
+        try {
+            if (set.previous()) {
+                user = new User(set.getInt("ID"), set.getString("FNAME"),
+                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
+
+    User getFirstUser() {
+        User user=null;
+        try {
+            if (set.first()) {
+                user = new User(set.getInt("ID"), set.getString("FNAME"),
+                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
     }
 
 }
