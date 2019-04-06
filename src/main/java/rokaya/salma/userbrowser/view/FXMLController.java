@@ -56,6 +56,8 @@ public class FXMLController implements Initializable {
     Controller controller;
     User user = null;
 
+    boolean click = false;
+
     public FXMLController(Controller controller) {
         this.controller = controller;
     }
@@ -93,8 +95,56 @@ public class FXMLController implements Initializable {
             }
         });
 
+        newButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (!click) {
+                    ID.setText("");
+                    firstName.setText("");
+                    lastName.setText("");
+                    middleName.setText("");
+                    email.setText("");
+                    phone.setText("");
+                    ID.setDisable(false);
+                    prevButton.setDisable(true);
+                    nextButton.setDisable(true);
+                    lastButton.setDisable(true);
+                    firstButton.setDisable(true);
+                    updateButton.setDisable(true);
+                    deleteButton.setDisable(true);
+                    newButton.setText("ADD");
+                    click = true;
+                } else if (!(ID.getText().equals("") && firstName.getText().equals("") && lastName.getText().equals("") && email.getText().equals("") && phone.getText().equals(""))) {
+
+                    user = new User(Integer.parseInt(ID.getText()), firstName.getText(), middleName.getText(), lastName.getText(),
+                            email.getText(), phone.getText());
+                    ID.setDisable(true);
+                    prevButton.setDisable(false);
+                    nextButton.setDisable(false);
+                    lastButton.setDisable(false);
+                    firstButton.setDisable(false);
+                    updateButton.setDisable(false);
+                    deleteButton.setDisable(false);
+                    newButton.setText("New");
+                    click = false;
+
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Empty Fields");
+                    String s = "Text should enter  valid text . ";
+                    alert.setContentText(s);
+                    alert.showAndWait();
+                }
+
+            }
+        });
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
         //rokaya
-        final Controller controller = new Controller();
         updateButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -120,5 +170,9 @@ public class FXMLController implements Initializable {
         middleName.setText(user.getMiddleName());
         email.setText(user.getEmail());
         phone.setText(user.getPhoneNumber());
+    }
+
+    void next() {
+
     }
 }
