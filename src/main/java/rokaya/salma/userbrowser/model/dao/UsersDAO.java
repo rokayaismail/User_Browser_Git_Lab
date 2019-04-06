@@ -19,8 +19,8 @@ import rokaya.salma.userbrowser.model.DB_Connection;
  */
 public class UsersDAO {
 
-    Statement statement = null;
-    CachedRowSet set = null;
+//    private Statement statement = null;
+    private CachedRowSet set = null;
 
     public UsersDAO() {
         try {
