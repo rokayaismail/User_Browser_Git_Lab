@@ -5,6 +5,9 @@
  */
 package rokaya.salma.userbrowser.controller;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 import rokaya.salma.userbrowser.model.User;
 import rokaya.salma.userbrowser.model.dao.UsersDAO;
@@ -15,24 +18,65 @@ import rokaya.salma.userbrowser.model.dao.UsersDAO;
  */
 public class Controller {
     //salma 
-    
+
     //rokaya
     private CachedRowSet set;
     private UsersDAO dao;
+
     public Controller() {
         dao = new UsersDAO();
-        set =dao.getAllUsers();
+        set = dao.getAllUsers();
     }
-    User getNextUser(){
-        return null;
-    } 
-    User getLastUser(){
-        return null;
-    } 
-    User getPrevUser(){
-        return null;
-    } 
-    User getFirstUser(){
-        return null;
-    } 
+
+    User getNextUser() {
+        User user=null;
+        try {
+            if (set.next()) {
+                user = new User(set.getInt("ID"), set.getString("FNAME"),
+                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
+
+    User getLastUser() {
+        User user=null;
+        try {
+            if (set.last()) {
+                user = new User(set.getInt("ID"), set.getString("FNAME"),
+                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
+
+    User getPrevUser() {
+        User user=null;
+        try {
+            if (set.previous()) {
+                user = new User(set.getInt("ID"), set.getString("FNAME"),
+                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
+
+    User getFirstUser() {
+        User user=null;
+        try {
+            if (set.first()) {
+                user = new User(set.getInt("ID"), set.getString("FNAME"),
+                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
 }

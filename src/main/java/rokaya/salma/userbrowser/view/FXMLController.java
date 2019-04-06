@@ -11,7 +11,7 @@ import rokaya.salma.userbrowser.model.User;
 import javafx.scene.control.TextField;
 
 public class FXMLController implements Initializable {
-    
+
     @FXML
     private Button newButton;
 
@@ -49,24 +49,28 @@ public class FXMLController implements Initializable {
     private TextField email;
 
     @FXML
-    private TextField phone;   
-    
+    private TextField phone;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
         //salma 
         firstButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                
+
             }
         });
-        
+
         //rokaya
     }
-    
-    
-    void displayUser(User user){
-        
+
+    void displayUser(User user) {
+        ID.setText("" + user.getId());
+        firstName.setText(user.getFirstName());
+        lastName.setText(user.getLastName());
+        middleName.setText(user.getMiddleName());
+        email.setText(user.getEmail());
+        phone.setText(user.getPhoneNumber());
     }
 }
