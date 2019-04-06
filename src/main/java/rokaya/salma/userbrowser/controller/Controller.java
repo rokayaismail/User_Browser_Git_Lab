@@ -23,16 +23,16 @@ public class Controller {
         dao = new UsersDAO();
         set =dao.getAllUsers();
     }
-    User getNextUser(){
+    public User getNextUser(){
         return null;
     } 
-    User getLastUser(){
+    public User getLastUser(){
         return null;
     } 
-    User getPrevUser(){
+    public User getPrevUser(){
         return null;
     } 
-    User getFirstUser(){
+    public User getFirstUser(){
         return null;
     } 
 }

@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import rokaya.salma.userbrowser.model.User;
 import javafx.scene.control.TextField;
+import rokaya.salma.userbrowser.controller.Controller;
 
 public class FXMLController implements Initializable {
     
@@ -51,6 +52,13 @@ public class FXMLController implements Initializable {
     @FXML
     private TextField phone;   
     
+    Controller controller;
+    User user = null;
+    
+    public FXMLController(Controller controller){
+        this.controller = controller;
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
@@ -58,15 +66,44 @@ public class FXMLController implements Initializable {
         firstButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                
+                user = controller.getFirstUser();
+                displayUser(user);
             }
         });
+        lastButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                user = controller.getLastUser();
+                displayUser(user);
+            }
+        });
+        prevButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                user = controller.getPrevUser();
+                displayUser(user);
+            }
+        });
+        nextButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                user = controller.getNextUser();
+                displayUser(user);
+            }
+        });
+        
+        
         
         //rokaya
     }
     
     
     void displayUser(User user){
-        
+        ID.setText("" +user.getId());
+        firstName.setText(user.getFirstName());
+        lastName.setText(user.getLastName());
+        middleName.setText(user.getMiddleName());
+        email.setText(user.getEmail());
+        phone.setText(user.getPhoneNumber());
     }
 }
