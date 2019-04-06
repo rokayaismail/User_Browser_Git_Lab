@@ -20,64 +20,41 @@ public class Controller {
     //salma 
 
     //rokaya
-    private CachedRowSet set;
+    
     private UsersDAO dao;
 
     public Controller() {
         dao = new UsersDAO();
-        set = dao.getAllUsers();
+        
     }
 
     public User getNextUser() {
-        User user=null;
-        try {
-            if (set.next()) {
-                user = new User(set.getInt("ID"), set.getString("FNAME"),
-                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return user;
+        
+        return dao.getNextUser();
     }
 
     public User getLastUser() {
-        User user=null;
-        try {
-            if (set.last()) {
-                user = new User(set.getInt("ID"), set.getString("FNAME"),
-                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return user;
+        
+        return dao.getLastUser();
     }
 
     public User getPrevUser() {
-        User user=null;
-        try {
-            if (set.previous()) {
-                user = new User(set.getInt("ID"), set.getString("FNAME"),
-                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return user;
+        
+        return dao.getPrevUser();
     }
 
     public User getFirstUser() {
-        User user=null;
-        try {
-            if (set.first()) {
-                user = new User(set.getInt("ID"), set.getString("FNAME"),
-                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return user;
+        return dao.getFirstUser();
     }
-
+    public void deleteCurrentUser(){
+        dao.deleteUser();
+    }
+    
+    public void insertUser(User user){
+        dao.addUser(user);
+    }
+    
+    public void updateCurrentUser(User user){
+        dao.updateUser(user);
+    }
 }
