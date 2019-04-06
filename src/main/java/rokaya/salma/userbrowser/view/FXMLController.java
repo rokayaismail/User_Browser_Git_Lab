@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import rokaya.salma.userbrowser.controller.Controller;
 
 public class FXMLController implements Initializable {
-    
+
     @FXML
     private Button newButton;
 
@@ -59,9 +59,10 @@ public class FXMLController implements Initializable {
         this.controller = controller;
     }
     
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
         //salma 
         firstButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
