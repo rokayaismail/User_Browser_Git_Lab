@@ -89,8 +89,7 @@ public class FXMLController implements Initializable {
         nextButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                user = controller.getNextUser();
-                displayUser(user);
+                next();
             }
         });
         newButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -116,6 +115,7 @@ public class FXMLController implements Initializable {
 
                     user = new User(Integer.parseInt(ID.getText()), firstName.getText(), middleName.getText(), lastName.getText(),
                             email.getText(), phone.getText());
+                    controller.insertUser(user);
                     ID.setDisable(true);
                     prevButton.setDisable(false);
                     nextButton.setDisable(false);
@@ -139,10 +139,11 @@ public class FXMLController implements Initializable {
         deleteButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                controller.deleteCurrentUser();
+                next();
             }
         });
-
+       
         //rokaya
     }
 
@@ -156,6 +157,7 @@ public class FXMLController implements Initializable {
     }
 
     void next() {
-
+        user = controller.getNextUser();
+        displayUser(user);
     }
 }
