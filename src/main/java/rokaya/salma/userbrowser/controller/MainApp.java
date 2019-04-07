@@ -6,20 +6,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import rokaya.salma.userbrowser.view.FXMLController;
 
 
 public class MainApp extends Application {
-
+    
+    Controller controller;
+    
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
-        
+        controller = new Controller();
+        FXMLLoader loader = new FXMLLoader();
+        FXMLController fXMLController = new FXMLController(controller);
+        loader.setController(fXMLController);
+        Parent root = loader.load(fXMLController.getClass().getResource("/fxml/Scene.fxml").openStream());
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        
+        scene.getStylesheets().add(getClass().getResource("/styles/Styles.css").toExternalForm());
         stage.setTitle("JavaFX and Maven");
         stage.setScene(scene);
         stage.show();
+        
     }
 
     /**

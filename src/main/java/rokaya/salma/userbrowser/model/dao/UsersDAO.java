@@ -47,15 +47,17 @@ public class UsersDAO {
 
     public void deleteUser() {
         try {
+            set.moveToCurrentRow();
             set.deleteRow();
             set.acceptChanges(DB_Connection.getConnection());
         } catch (SQLException ex) {
-            Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
     public void updateUser(User user) {
         try {
+            set.moveToCurrentRow();
             set.updateInt("ID", user.getId());
             set.updateString("FNAME", user.getFirstName());
             set.updateString("LNAME", user.getLastName());
@@ -65,7 +67,7 @@ public class UsersDAO {
             set.updateRow();
             set.acceptChanges(DB_Connection.getConnection());
         } catch (SQLException ex) {
-            Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -79,9 +81,10 @@ public class UsersDAO {
             set.updateString("EMAIL", user.getEmail());
             set.updateString("PHONE", user.getPhoneNumber());
             set.insertRow();
+            set.moveToCurrentRow();
             set.acceptChanges(DB_Connection.getConnection());
         } catch (SQLException ex) {
-            Logger.getLogger(UsersDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -89,6 +92,9 @@ public class UsersDAO {
         User user = null;
         try {
             if (set.next()) {
+                user = new User(set.getInt("ID"), set.getString("FNAME"),
+                        set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
+            }else if (set.first()) {
                 user = new User(set.getInt("ID"), set.getString("FNAME"),
                         set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
             }
@@ -117,7 +123,11 @@ public class UsersDAO {
             if (set.previous()) {
                 user = new User(set.getInt("ID"), set.getString("FNAME"),
                         set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
+            } else if (set.last()) {
+                    user = new User(set.getInt("ID"), set.getString("FNAME"),
+                            set.getString("MNAME"), set.getString("LNAME"), set.getString("EMAIL"), set.getString("PHONE"));
             }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -136,5 +146,4 @@ public class UsersDAO {
         }
         return user;
     }
-
 }
