@@ -58,8 +58,8 @@ public class FXMLController implements Initializable {
 
     boolean click = false;
 
-    public FXMLController(Controller controller) {
-        this.controller = controller;
+    public FXMLController() {
+        this.controller = new Controller();
     }
 
     @Override

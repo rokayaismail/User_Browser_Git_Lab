@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>rokaya.salma.userbrowser.MainApp</mainClass>
+        <mainClass>rokaya.salma.userbrowser.controller.MainApp</mainClass>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/oracle/ojdbc6 -->
