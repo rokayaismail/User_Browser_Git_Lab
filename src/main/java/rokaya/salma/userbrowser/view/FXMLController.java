@@ -55,6 +55,7 @@ public class FXMLController implements Initializable {
 
     Controller controller;
     User user = null;
+
     boolean click = false;
 
     public FXMLController(Controller controller) {
@@ -92,6 +93,7 @@ public class FXMLController implements Initializable {
                 next();
             }
         });
+
         newButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -143,8 +145,23 @@ public class FXMLController implements Initializable {
                 next();
             }
         });
-       
         //rokaya
+        updateButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (!(ID.getText().equals("") && firstName.getText().equals("") && lastName.getText().equals("") && email.getText().equals("") && phone.getText().equals(""))) {
+                    User user = new User(Integer.parseInt(ID.getText()), firstName.getText(),
+                            middleName.getText(), lastName.getText(), email.getText(), phone.getText());
+                    controller.updateCurrentUser(user);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Empty Fields");
+                    String s = "Text should enter  valid text . ";
+                    alert.setContentText(s);
+                    alert.showAndWait();
+                }
+            }
+        });
     }
 
     void displayUser(User user) {
